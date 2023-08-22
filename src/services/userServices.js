@@ -15,8 +15,8 @@ export const getUser = async (userId) => {
 };
 
 export const postUser = async (newUser) => {
-  // let db = await connDB();
-  // let collection = db.collection("users");
-  // await collection.insertOne(newUser);
-  // return newUser;
+  let db = await connDB();
+  let collection = db.collection("users");
+  let data = await collection.insertOne(newUser);
+  return data;
 };
