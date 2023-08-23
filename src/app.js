@@ -1,15 +1,19 @@
 console.clear();
-import "dotenv/config";
+//SERVER CONFIG
+import { server } from "./configuration/serverConfig.js";
 import express from "express";
-import v1User from "./v1/routes/userRoutes.js";
+//V1 ROUTERS
+import v1Routes from "./v1/index.js"; 
 
-//config server
-const SERVER = JSON.parse(process.env.SERVER);
+//MIDDLEWARES
 const APP = express();
 APP.use(express.json());
 
-APP.use("/v1/user", v1User);
+//ROUTERS VERSIONING
+APP.use("/v1", v1Routes);
 
-APP.listen(SERVER, () => {
-  console.log(`🚀 Server running at http://${SERVER.hostname}:${SERVER.port}`);
+
+//SERVER LISTENING
+APP.listen(server.PORT, () => {
+  console.log(`🚀 Server running at http://${server.HOSTNAME}:${server.PORT}`);
 });
