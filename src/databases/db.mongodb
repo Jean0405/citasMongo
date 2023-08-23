@@ -189,25 +189,23 @@ db.createCollection("quotes", {
         },
         user: {
           bsonType: "object",
-          required: ["ID", "names"],
+          required: ["ID", "name", "surname", "genre"],
           properties: {
             ID: {
               bsonType: "int",
               description: "user's ID is required",
             },
-            names: {
-              bsonType: "object",
-              required: ["name", "surname"],
-              properties: {
-                name: {
-                  bsonType: "string",
-                  description: "user's name is required",
-                },
-                surname: {
-                  bsonType: "string",
-                  description: "user's surname is required",
-                },
-              },
+            name: {
+              bsonType: "string",
+              description: "user's name is required",
+            },
+            surname: {
+              bsonType: "string",
+              description: "user's surname is required",
+            },
+            genre: {
+              bsonType: "string",
+              description: "user's genre is required",
             },
           },
         },
@@ -218,19 +216,18 @@ db.createCollection("quotes", {
 
 // use("citasDB");
 // db.quotes.insertOne({
-//   ID: 1,
-//   date: new Date("2023-08-21"),
-//   state: "activo",
+//   ID: 2,
+//   date: new Date("2023-10-21"),
+//   state: "inactivo",
 //   doctor: {
 //     ID: 1097094415,
 //     name: "Jean Angarita",
 //   },
 //   user: {
 //     ID: 1005184201,
-//     names: {
-//       name: "Juan",
-//       surname: "Peréz",
-//     },
+//     name: "Sara Fernanda",
+//     surname: "Angarita Olarte",
+//     genre: "femenino",
 //   },
 // });
 
@@ -270,4 +267,3 @@ db.createCollection("quotes", {
 //     address: "Avenida ABC",
 //   },
 // });
-
