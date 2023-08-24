@@ -1,3 +1,5 @@
+import { object, string } from "joi";
+
 use("citasDB");
 db.createCollection("users", {
   validator: {
@@ -108,7 +110,15 @@ db.createCollection("doctors", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["ID", "name", "office", "specialty"],
+      required: [
+        "ID",
+        "name",
+        "email",
+        "password",
+        "role",
+        "office",
+        "specialty",
+      ],
       properties: {
         ID: {
           bsonType: "int",
@@ -117,6 +127,27 @@ db.createCollection("doctors", {
         name: {
           bsonType: "string",
           description: "name is required",
+        },
+        email: {
+          bsonType: "string",
+          description: "doctor's email is required",
+        },
+        password: {
+          bsonType: "string",
+          description: "doctor's password is required",
+        },
+        role: {
+          bsonType: "object",
+          required: ["name", "permissions"],
+          properties: {
+            name: {
+              bsonType: "string",
+            },
+            permissions: {
+              bsonType: "array",
+            },
+          },
+          description: "doctor's role is required",
         },
         office: {
           bsonType: "object",
@@ -232,17 +263,23 @@ db.createCollection("quotes", {
 // });
 
 // use("citasDB");
+// db.doctors.deleteOne({ ID: 1234567890 });
 // db.doctors.insertOne({
-//   ID: 1097094415,
-//   name: "Jean Angarita",
-//   office: {
-//     ID: 1,
-//     name: "Consultorio 1",
+//   ID: 1234567890,
+//   name: "Lucho Gerardo",
+//   email: "lucho123@gmail.com",
+//   password: "lucheto",
+//   role: {
+//     name: "basicDoctor",
+//     permissions: ["onlyList"],
 //   },
-
+//   office: {
+//     ID: 2,
+//     name: "Consultorio 2",
+//   },
 //   specialty: {
-//     ID: 1,
-//     name: "Terapeuta",
+//     ID: 2,
+//     name: "Cirujano",
 //   },
 // });
 
