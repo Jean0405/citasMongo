@@ -11,7 +11,7 @@ export const generateToken = async (req, res) => {
     .find({ email: emailDoctor, password: passwordDoctor })
     .toArray();
 
-  if (!result)
+  if (!result[0])
     return res.send({ status: 404, message: "Usuario no encontrado" });
 
   // const { ID, role } = result[0];
@@ -32,4 +32,21 @@ export const generateToken = async (req, res) => {
   res
     .status(200)
     .send({ status: 200, message: "TOKEN CREADO CORRECTAMENTE", token: jwt });
+};
+
+export const verifyToken= (accessIndicator) => async (req, res, next) => {
+  const { authorization } = req.headers;
+  if(!authorization) return res
+  .status(400)
+  .send({ status: 400, message: "unassigned token" });
+
+  const encoder = new TextEncoder();
+  const jwtData = await jwtVerify(authorization, encoder.encode(process.env.PRIVATE_KEY));
+  
+  const permissions = jwtData.payload.role.permissions;
+
+  if (!permissions.includes("*")) {
+    if (!permissions.includes(accessIndicator)) res.send("ERROR ACCESS PERMISSIONS")
+  }
+  next();
 };
