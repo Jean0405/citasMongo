@@ -23,6 +23,15 @@ export const getAllQuotesInOrder = async (order) => {
   return data;
 };
 
+export const getNextDateByUserId = async (userID) => {
+  let db = await connDB();
+  let collection = db.collection("quotes");
+
+  let data = await collection
+    .find({"user.ID": Number(userID)}).sort({date: 1}).toArray();
+  return data[0];
+};
+
 export const getQuotesByGenre = async (genre) => {
   let db = await connDB();
   let collection = db.collection("quotes");
@@ -32,6 +41,14 @@ export const getQuotesByGenre = async (genre) => {
     throw new Error("Invalid order paramenter");
 
   let genreOption = genreUpper == "M" ? "masculino" : "femenino";
-  let data = await collection.find({ "user.genre": genreOption }).toArray();
+  let data = await collection.aggregate([
+    {
+      $match:{
+        "user.genre":genreOption,
+        "state": "realizada"
+      }
+    }
+  ]).toArray();
   return data;
 };
+
