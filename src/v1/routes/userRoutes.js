@@ -10,7 +10,7 @@ import { userSchema } from "../../middlewares/userMiddleware.js";
 const v1User = Router();
 
 v1User
-  .get("/", verifyToken("onlyList2"),userController.getAllUsers)
+  .get("/", verifyToken("mid_level"),userController.getAllUsers)
   .get("/:userId", userController.getUser)
   .post("/", validateSchema(userSchema), userController.postUser);
 

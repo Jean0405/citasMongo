@@ -29,6 +29,9 @@ export const getUser = async (req, res) => {
 };
 
 export const postUser = async (req, res) => {
+
+  if(req.body.age < 18 && !req.body.attendant) return res.status(500).json({status: 500, message: "YOU MUST ENTER A ATTENDANT"});
+
   try {
     let data = await userServices.postUser(req.body);
     res

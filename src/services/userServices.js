@@ -17,6 +17,11 @@ export const getUser = async (userId) => {
 export const postUser = async (newUser) => {
   let db = await connDB();
   let collection = db.collection("users");
+
   let data = await collection.insertOne(newUser);
   return data;
 };
+
+// let date = new Date("2023-05-01");
+
+// console.log(date.toISOString());
