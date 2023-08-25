@@ -1,5 +1,3 @@
-import { object, string } from "joi";
-
 use("citasDB");
 db.createCollection("users", {
   validator: {
@@ -8,11 +6,11 @@ db.createCollection("users", {
       required: [
         "ID",
         "names",
+        "age",
         "phone",
         "address",
         "email",
         "genre",
-        "attendant",
       ],
       properties: {
         ID: {
@@ -27,14 +25,20 @@ db.createCollection("users", {
           properties: {
             name: {
               bsonType: "string",
+              maxLength: 70,
               description: "name is required",
             },
             surname: {
               bsonType: "string",
+              maxLength: 70,
               description: "surname is required",
             },
           },
           description: "Names is required",
+        },
+        age:{
+          bsonType: "int",
+          minimum: 1
         },
 
         //PHONE NUMBER
@@ -200,7 +204,7 @@ db.createCollection("quotes", {
         },
         state: {
           bsonType: "string",
-          enum: ["activo", "inactivo"],
+          enum: ["activo", "inactivo", "rechazada", "realizada"],
           description: "state is required",
         },
         doctor: {
@@ -245,11 +249,12 @@ db.createCollection("quotes", {
   },
 });
 
+
 // use("citasDB");
 // db.quotes.insertOne({
 //   ID: 2,
-//   date: new Date("2023-10-21"),
-//   state: "inactivo",
+//   date: new Date("2023-10-10"),
+//   state: "realizada",
 //   doctor: {
 //     ID: 1097094415,
 //     name: "Jean Angarita",
@@ -263,24 +268,23 @@ db.createCollection("quotes", {
 // });
 
 // use("citasDB");
-// db.doctors.deleteOne({ ID: 1234567890 });
 // db.doctors.insertOne({
-//   ID: 1234567890,
-//   name: "Lucho Gerardo",
-//   email: "lucho123@gmail.com",
-//   password: "lucheto",
-//   role: {
-//     name: "basicDoctor",
-//     permissions: ["onlyList"],
+//   "ID":1,
+//   "name":"Jean",
+//   "email":"jean123@gmail.com",
+//   "password":"jean123",
+//   "role":{
+//     "name":"doctor",
+//     "permissions":["mid_level"]
 //   },
-//   office: {
-//     ID: 2,
-//     name: "Consultorio 2",
+//   "office":{
+//     "ID":1,
+//     "name":"consultorio 1"
 //   },
-//   specialty: {
-//     ID: 2,
-//     name: "Cirujano",
-//   },
+//   "specialty":{
+//     "ID":1,
+//     "name":"terapeuta"
+//   }
 // });
 
 // use("citasDB");
