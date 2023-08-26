@@ -2,15 +2,14 @@ import { Router } from "express";
 //CONTROLLERS
 import * as userController from "../../controllers/userControllers.js";
 //MIDDLEWARES
-import { verifyToken } from "../../JWT/token.js";
 import { validateSchema } from "../../helpers/validateSchema.js";
 //SCHEMAS
 import { userSchema } from "../../middlewares/userMiddleware.js";
 
-const v1User = Router();
+const v1Users = Router();
 
-v1User
-  .get("/", verifyToken("mid_level"),userController.getAllUsers)
+v1Users
+  .get("/", userController.getAllUsers)
   .get("/:userId", userController.getUser)
   .post("/", validateSchema(userSchema), userController.postUser);
 
@@ -34,4 +33,4 @@ v1User
 //     "address": "Calle 31 #2-39",
 //   },
 // };
-export default v1User;
+export default v1Users;
