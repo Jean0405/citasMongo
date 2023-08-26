@@ -34,19 +34,22 @@ export const generateToken = async (req, res) => {
     .send({ status: 200, message: "TOKEN CREADO CORRECTAMENTE", token: jwt });
 };
 
-export const verifyToken= (accessIndicator) => async (req, res, next) => {
+export const verifyToken = (accessIndicator) => async (req, res, next) => {
   const { authorization } = req.headers;
-  if(!authorization) return res
-  .status(400)
-  .send({ status: 400, message: "unassigned token" });
+  if (!authorization)
+    return res.status(400).json({ status: 400, message: "unassigned token" });
 
   const encoder = new TextEncoder();
-  const jwtData = await jwtVerify(authorization, encoder.encode(process.env.PRIVATE_KEY));
-  
+  const jwtData = await jwtVerify(
+    authorization,
+    encoder.encode(process.env.PRIVATE_KEY)
+  );
+
   const permissions = jwtData.payload.role.permissions;
 
   if (!permissions.includes("*")) {
-    if (!permissions.includes(accessIndicator)) res.send("ERROR ACCESS PERMISSIONS")
+    if (!permissions.includes(accessIndicator))
+      res.status(401).send("ERROR ACCESS PERMISSIONS");
   }
   next();
 };
