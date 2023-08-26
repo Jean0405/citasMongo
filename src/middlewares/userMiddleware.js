@@ -6,6 +6,7 @@ export const userSchema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string().required(),
   }),
+  age: Joi.number(),
   phone: Joi.string()
     .length(10)
     .pattern(/^[0-9]+$/)
