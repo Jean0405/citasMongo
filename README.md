@@ -90,18 +90,18 @@ Este endpoint permite realizar un log in de los **DOCTORES**, el cual si existe 
 **_BODY EJEMPLO_**
 ```json
 {
-    ID: 1005184201,
-    names: {
-      name: "Juan",
-      surname: "Pérez",
+    "ID": 1005184201,
+    "names": {
+      "name": "Juan",
+      "surname": "Pérez",
     },
-    age: 20,
-    phone: "1234567890",
-    address: "Calle B",
-    email: "juan@gmail.com",
-    genre: {
-      nameGenre: "masculino",
-      abbreviation: "M",
+    "age": 20,
+    "phone": "1234567890",
+    "address": "Calle B",
+    "email": "juan@gmail.com",
+    "genre": {
+      "nameGenre": "masculino",
+      "abbreviation": "M",
     },
   },
 ```
@@ -109,24 +109,24 @@ Este endpoint permite realizar un log in de los **DOCTORES**, el cual si existe 
 *Si no es mayor de edad, deberá ingresar un acudiente*
 ```json
 {
-    ID: 1005184201,
-    names: {
-      name: "Juan",
-      surname: "Pérez",
+    "ID": 1005184201,
+    "names": {
+      "name": "Juan",
+      "surname": "Pérez",
     },
-    age: 17,
-    phone: "1234567890",
-    address: "Calle B",
-    email: "juan@gmail.com",
-    genre: {
-      nameGenre: "masculino",
-      abbreviation: "M",
+    "age": 17,
+    "phone": "1234567890",
+    "address": "Calle B",
+    "email": "juan@gmail.com",
+    "genre": {
+      "nameGenre": "masculino",
+      "abbreviation": "M",
     },
-    attendant: {
-      ID: 1234567890,
-      name: "Ana",
-      phone: "9876543210",
-      address: "Avenida ABC",
+    "attendant": {
+      "ID": 1234567890,
+      "name": "Ana",
+      "phone": "9876543210",
+      "address": "Avenida ABC",
     },
   },
 ```
