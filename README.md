@@ -34,7 +34,7 @@ Al clonar, podrás ejecutar del archivo **databases/db.mongodb** para uso correc
 
 - Aunque puedes usar este PORT y HOST para las pruebas
 
-```json
+```env
 PORT=3300
 HOST=127.25.25.27
 
