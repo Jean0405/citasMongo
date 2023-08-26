@@ -3,15 +3,7 @@ db.createCollection("users", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: [
-        "ID",
-        "names",
-        "age",
-        "phone",
-        "address",
-        "email",
-        "genre",
-      ],
+      required: ["ID", "names", "age", "phone", "address", "email", "genre"],
       properties: {
         ID: {
           bsonType: "int",
@@ -36,14 +28,15 @@ db.createCollection("users", {
           },
           description: "Names is required",
         },
-        age:{
+        age: {
           bsonType: "int",
-          minimum: 1
+          minimum: 1,
         },
 
         //PHONE NUMBER
         phone: {
           bsonType: "string",
+          pattern: "^[0-9]+$",
           maxLength: 10,
           description:
             "phone number is required and has a maximum of 10 characters.",
@@ -95,6 +88,7 @@ db.createCollection("users", {
             },
             phone: {
               bsonType: "string",
+              pattern: "^[0-9]+$",
               maxLength: 10,
               description: "attendant's phone is required",
             },
@@ -249,62 +243,188 @@ db.createCollection("quotes", {
   },
 });
 
+use("citasDB");
+db.quotes.insertMany([
+  {
+    ID: 2,
+    date: new Date("2023-10-10"),
+    state: "realizada",
+    doctor: {
+      ID: 1097094415,
+      name: "Jean Angarita",
+    },
+    user: {
+      ID: 1005184201,
+      name: "Sara Fernanda",
+      surname: "Angarita Olarte",
+      genre: "femenino",
+    },
+  },
+  {
+    ID: 3,
+    date: new Date("2023-11-15"),
+    state: "activo",
+    doctor: {
+      ID: 2087564321,
+      name: "Maria López",
+    },
+    user: {
+      ID: 1002567890,
+      name: "Juan Pérez",
+      surname: "Gómez",
+      genre: "masculino",
+    },
+  },
+  {
+    ID: 4,
+    date: new Date("2023-10-10"),
+    state: "rechazada",
+    doctor: {
+      ID: 1097094415,
+      name: "José Enrique",
+    },
+    user: {
+      ID: 1005184201,
+      name: "Laura Florez",
+      surname: "Duarte Florez",
+      genre: "femenino",
+    },
+  },
+  {
+    ID: 5,
+    date: new Date("2023-09-25"),
+    state: "rechazada",
+    doctor: {
+      ID: 987654321,
+      name: "Laura Sánchez",
+    },
+    user: {
+      ID: 1001234567,
+      name: "Elena Rodríguez",
+      surname: "Pérez",
+      genre: "femenino",
+    },
+  },
+  {
+    ID: 6,
+    date: new Date("2023-11-03"),
+    state: "realizada",
+    doctor: {
+      ID: 567890123,
+      name: "Andrés Gómez",
+    },
+    user: {
+      ID: 1009876543,
+      name: "Roberto Martínez",
+      surname: "López",
+      genre: "masculino",
+    },
+  },
+]);
 
-// use("citasDB");
-// db.quotes.insertOne({
-//   ID: 2,
-//   date: new Date("2023-10-10"),
-//   state: "realizada",
-//   doctor: {
-//     ID: 1097094415,
-//     name: "Jean Angarita",
-//   },
-//   user: {
-//     ID: 1005184201,
-//     name: "Sara Fernanda",
-//     surname: "Angarita Olarte",
-//     genre: "femenino",
-//   },
-// });
+use("citasDB");
+db.doctors.insertMany([
+  {
+    ID: 2,
+    name: "Dr. Rodríguez",
+    email: "rodriguez@example.com",
+    password: "rodriguez123",
+    role: { name: "doctor", permissions: ["mid_level", "write"] },
+    office: { ID: 2, name: "Consultorio A" },
+    specialty: { ID: 2, name: "Cardiología" },
+  },
+  {
+    ID: 3,
+    name: "Dra. Sánchez",
+    email: "sanchez@example.com",
+    password: "sanchez123",
+    role: { name: "doctor", permissions: ["read"] },
+    office: { ID: 3, name: "Consultorio B" },
+    specialty: { ID: 3, name: "Dermatología" },
+  },
+  {
+    ID: 4,
+    name: "Dra. Martínez",
+    email: "martinez@example.com",
+    password: "martinez123",
+    role: { name: "doctor", permissions: ["mid_level", "write"] },
+    office: { ID: 4, name: "Consultorio C" },
+    specialty: { ID: 4, name: "Pediatría" },
+  },
+  {
+    ID: 5,
+    name: "Dr. Vargas",
+    email: "vargas@example.com",
+    password: "vargas123",
+    role: { name: "doctor", permissions: ["read"] },
+    office: { ID: 5, name: "Consultorio D" },
+    specialty: { ID: 5, name: "Neurología" },
+  },
+]);
 
-// use("citasDB");
-// db.doctors.insertOne({
-//   "ID":1,
-//   "name":"Jean",
-//   "email":"jean123@gmail.com",
-//   "password":"jean123",
-//   "role":{
-//     "name":"doctor",
-//     "permissions":["mid_level"]
-//   },
-//   "office":{
-//     "ID":1,
-//     "name":"consultorio 1"
-//   },
-//   "specialty":{
-//     "ID":1,
-//     "name":"terapeuta"
-//   }
-// });
-
-// use("citasDB");
-// db.users.insertOne({
-//   ID: 1005184201,
-//   names: {
-//     name: "Juan",
-//     surname: "Pérez",
-//   },
-//   phone: "1234567890",
-//   address: "Calle 123",
-//   email: "juan@gmail.com",
-//   genre: {
-//     nameGenre: "masculino",
-//     abbreviation: "M",
-//   },
-//   attendant: {
-//     ID: 1234567890,
-//     name: "Ana",
-//     phone: "9876543210",
-//     address: "Avenida ABC",
-//   },
-// });
+use("citasDB");
+db.users.insertMany([
+  {
+    ID: 1005184201,
+    names: {
+      name: "Juan",
+      surname: "Pérez",
+    },
+    age: 20,
+    phone: "1234567890",
+    address: "Calle B",
+    email: "juan@gmail.com",
+    genre: {
+      nameGenre: "masculino",
+      abbreviation: "M",
+    },
+    attendant: {
+      ID: 1234567890,
+      name: "Ana",
+      phone: "9876543210",
+      address: "Avenida ABC",
+    },
+  },
+  {
+    ID: 1005184201,
+    names: {
+      name: "Sara",
+      surname: "Ramirez",
+    },
+    age: 20,
+    phone: "1234567890",
+    address: "Calle A",
+    email: "ramirez@gmail.com",
+    genre: {
+      nameGenre: "masculino",
+      abbreviation: "M",
+    },
+    attendant: {
+      ID: 1234567811,
+      name: "Isabella",
+      phone: "9876543111",
+      address: "Avenida AAA",
+    },
+  },
+  {
+    ID: 1112223334,
+    names: {
+      name: "Jorge",
+      surname: "Bolaños",
+    },
+    age: 20,
+    phone: "1234567111",
+    address: "Calle 123",
+    email: "ramirez@gmail.com",
+    genre: {
+      nameGenre: "masculino",
+      abbreviation: "M",
+    },
+    attendant: {
+      ID: 1234567222,
+      name: "José",
+      phone: "9876543333",
+      address: "Avenida CCC",
+    },
+  },
+]);
